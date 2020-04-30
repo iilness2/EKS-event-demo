@@ -1,0 +1,21 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: your-ingress-name
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/group: your-target-group-name
+    alb.ingress.kubernetes.io/target-type: instance
+  labels:
+    app: your-app-name
+spec:
+  rules:
+   - http:
+        paths:
+          - path: /*
+            backend:
+              serviceName: your-service-name
+              servicePort: 80
